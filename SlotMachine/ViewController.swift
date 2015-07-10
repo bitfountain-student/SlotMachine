@@ -16,7 +16,16 @@ class ViewController: UIViewController {
   var fourthContainer: UIView!
   
   var titleLabel:UILabel!
-  
+
+// Information Labels
+
+  var creditsLabel: UILabel!
+  var betLabel: UILabel!
+  var winnerLabel: UILabel!
+  var creditsTitleLabel: UILabel!
+  var betTitleLabel: UILabel!
+  var winnerPaidLabel: UILabel!
+
   let kMarginForView:CGFloat = 10.0
   let kSixth:CGFloat = 1.0/6.0
 
@@ -30,8 +39,9 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     setupContainerViews()
-    setupFirstContainer(firstContainer)
+    setupFirstContainer(self.firstContainer)
     setupSecondContainer(self.secondContainer)
+    setupThirdContainer(self.thirdContainer)
   }
 
   override func didReceiveMemoryWarning() {
@@ -100,6 +110,21 @@ class ViewController: UIViewController {
               }
           }
       }
+
+func setupThirdContainer(containerView: UIView) {
+        
+        self.creditsLabel = UILabel()
+        self.creditsLabel.text = "000000"
+        self.creditsLabel.textColor = UIColor.redColor()
+        self.creditsLabel.font = UIFont(name: "Menlo-Bold", size: 16)
+        self.creditsLabel.sizeToFit()
+        self.creditsLabel.center = CGPoint(
+          x: containerView.frame.width * kSixth,
+          y: containerView.frame.height * kThird)
+        self.creditsLabel.textAlignment = NSTextAlignment.Center
+        self.creditsLabel.backgroundColor = UIColor.darkGrayColor()
+        containerView.addSubview(self.creditsLabel)
+    }
 
 
 }
