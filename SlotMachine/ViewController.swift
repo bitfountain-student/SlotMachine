@@ -38,6 +38,7 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    self.view.backgroundColor = UIColor.purpleColor()
     setupContainerViews()
     setupFirstContainer(self.firstContainer)
     setupSecondContainer(self.secondContainer)
@@ -97,34 +98,54 @@ class ViewController: UIViewController {
   }
 
   func setupSecondContainer(containerView: UIView) {
-          for var containerNumber = 0; containerNumber < kNumberOfContainers; ++containerNumber {
-              for var slotNumber = 0; slotNumber < kNumberOfSlots; ++slotNumber {
-                  var slotImageView = UIImageView()
-                  slotImageView.backgroundColor = UIColor.yellowColor()
-                  slotImageView.frame = CGRect(
-                    x: containerView.bounds.origin.x + (containerView.bounds.size.width * CGFloat(containerNumber) * kThird),
-                    y: containerView.bounds.origin.y + (containerView.bounds.size.height * CGFloat(slotNumber) * kThird),
-                    width: containerView.bounds.width * kThird - kMarginForSlot,
-                    height: containerView.bounds.height * kThird - kMarginForSlot)
-                  containerView.addSubview(slotImageView)
-              }
-          }
-      }
-
-func setupThirdContainer(containerView: UIView) {
-        
-        self.creditsLabel = UILabel()
-        self.creditsLabel.text = "000000"
-        self.creditsLabel.textColor = UIColor.redColor()
-        self.creditsLabel.font = UIFont(name: "Menlo-Bold", size: 16)
-        self.creditsLabel.sizeToFit()
-        self.creditsLabel.center = CGPoint(
-          x: containerView.frame.width * kSixth,
-          y: containerView.frame.height * kThird)
-        self.creditsLabel.textAlignment = NSTextAlignment.Center
-        self.creditsLabel.backgroundColor = UIColor.darkGrayColor()
-        containerView.addSubview(self.creditsLabel)
+    for var containerNumber = 0; containerNumber < kNumberOfContainers; ++containerNumber {
+        for var slotNumber = 0; slotNumber < kNumberOfSlots; ++slotNumber {
+            var slotImageView = UIImageView()
+            slotImageView.backgroundColor = UIColor.yellowColor()
+            slotImageView.frame = CGRect(
+              x: containerView.bounds.origin.x + (containerView.bounds.size.width * CGFloat(containerNumber) * kThird),
+              y: containerView.bounds.origin.y + (containerView.bounds.size.height * CGFloat(slotNumber) * kThird),
+              width: containerView.bounds.width * kThird - kMarginForSlot,
+              height: containerView.bounds.height * kThird - kMarginForSlot)
+            containerView.addSubview(slotImageView)
+        }
     }
+  }
+
+  func setupThirdContainer(containerView: UIView) {
+    self.creditsLabel = UILabel()
+    self.creditsLabel.text = "000000"
+    self.creditsLabel.textColor = UIColor.redColor()
+    self.creditsLabel.font = UIFont(name: "Menlo-Bold", size: 16)
+    self.creditsLabel.sizeToFit()
+    self.creditsLabel.center = CGPoint(
+      x: containerView.frame.width * kSixth,
+      y: containerView.frame.height * kThird)
+    self.creditsLabel.textAlignment = NSTextAlignment.Center
+    self.creditsLabel.backgroundColor = UIColor.darkGrayColor()
+    containerView.addSubview(self.creditsLabel)
+
+    self.betLabel = UILabel()
+    self.betLabel.text = "0000"
+    self.betLabel.textColor = UIColor.redColor()
+    self.betLabel.font = UIFont(name: "Menlo-Bold", size: 16)
+    self.betLabel.sizeToFit()
+    self.betLabel.center = CGPoint(x: containerView.frame.width * kSixth * 3, y: containerView.frame.height * kThird)
+    self.betLabel.textAlignment = NSTextAlignment.Center
+    self.betLabel.backgroundColor = UIColor.darkGrayColor()
+    containerView.addSubview(self.betLabel)
+    
+    self.winnerPaidLabel = UILabel()
+    self.winnerPaidLabel.text = "000000"
+    self.winnerPaidLabel.textColor = UIColor.redColor()
+    self.winnerPaidLabel.font = UIFont(name: "Menlo-Bold", size: 16)
+    self.winnerPaidLabel.sizeToFit()
+    self.winnerPaidLabel.center = CGPoint(x: containerView.frame.width * kSixth * 5, y: containerView.frame.height * kThird)
+    self.winnerPaidLabel.textAlignment = NSTextAlignment.Center
+    self.winnerPaidLabel.backgroundColor = UIColor.darkGrayColor()
+    containerView.addSubview(self.winnerPaidLabel)
+
+  }
 
 
 }
