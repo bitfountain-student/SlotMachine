@@ -13,6 +13,7 @@
 		B4E11A6F1B4EEC5F006A81A8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B4E11A6E1B4EEC5F006A81A8 /* Images.xcassets */; };
 		B4E11A721B4EEC60006A81A8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4E11A701B4EEC60006A81A8 /* LaunchScreen.xib */; };
 		B4E11A7E1B4EEC60006A81A8 /* SlotMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E11A7D1B4EEC60006A81A8 /* SlotMachineTests.swift */; };
+		B4E11A881B4F76E4006A81A8 /* Slot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E11A871B4F76E4006A81A8 /* Slot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		B4E11A771B4EEC60006A81A8 /* SlotMachineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlotMachineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4E11A7C1B4EEC60006A81A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B4E11A7D1B4EEC60006A81A8 /* SlotMachineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotMachineTests.swift; sourceTree = "<group>"; };
+		B4E11A871B4F76E4006A81A8 /* Slot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				B4E11A6E1B4EEC5F006A81A8 /* Images.xcassets */,
 				B4E11A701B4EEC60006A81A8 /* LaunchScreen.xib */,
 				B4E11A651B4EEC5F006A81A8 /* Supporting Files */,
+				B4E11A871B4F76E4006A81A8 /* Slot.swift */,
 			);
 			path = SlotMachine;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4E11A6A1B4EEC5F006A81A8 /* ViewController.swift in Sources */,
+				B4E11A881B4F76E4006A81A8 /* Slot.swift in Sources */,
 				B4E11A681B4EEC5F006A81A8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,6 +415,7 @@
 				B4E11A831B4EEC60006A81A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B4E11A841B4EEC60006A81A8 /* Build configuration list for PBXNativeTarget "SlotMachineTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +424,7 @@
 				B4E11A861B4EEC60006A81A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
