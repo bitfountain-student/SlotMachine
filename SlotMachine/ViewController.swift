@@ -15,6 +15,8 @@ class ViewController: UIViewController {
   var thirdContainer: UIView!
   var fourthContainer: UIView!
   
+  var titleLabel:UILabel!
+  
   let kMarginForView:CGFloat = 10.0
   let kSixth:CGFloat = 1.0/6.0
   
@@ -22,8 +24,8 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
-    
     setupContainerViews()
+    setupFirstContainer(firstContainer)
   }
 
   override func didReceiveMemoryWarning() {
@@ -48,7 +50,7 @@ class ViewController: UIViewController {
       height: self.view.bounds.height * (3 * kSixth)))
     self.secondContainer.backgroundColor = UIColor.blackColor()
     self.view.addSubview(self.secondContainer)
-    
+     
     self.thirdContainer = UIView(frame: CGRect(
       x: self.view.bounds.origin.x + kMarginForView,
       y: self.firstContainer.frame.height + secondContainer.frame.height,
@@ -56,7 +58,7 @@ class ViewController: UIViewController {
       height: self.view.bounds.height * kSixth))
     self.thirdContainer.backgroundColor = UIColor.lightGrayColor()
     self.view.addSubview(self.thirdContainer)
-    
+     
     self.fourthContainer = UIView(frame: CGRect(
       x: self.view.bounds.origin.x + kMarginForView,
       y: self.firstContainer.frame.height + secondContainer.frame.height + self.thirdContainer.frame.height,
@@ -64,7 +66,18 @@ class ViewController: UIViewController {
       height: self.view.bounds.height * kSixth))
     self.fourthContainer.backgroundColor = UIColor.blackColor()
     self.view.addSubview(self.fourthContainer)
-    
+ 
+  }
+  
+  func setupFirstContainer(containerView: UIView) {
+    self.titleLabel = UILabel()
+    self.titleLabel.text = "Super Slots"
+    self.titleLabel.textColor = UIColor.yellowColor()
+    self.titleLabel.font = UIFont(name: "MarkerFelt-Wide", size: 50)
+    self.titleLabel.sizeToFit()
+    self.titleLabel.center = containerView.center
+
+    containerView.addSubview(self.titleLabel)
   }
 
 }
