@@ -18,7 +18,6 @@ class ViewController: UIViewController {
   var titleLabel:UILabel!
 
 // Information Labels
-
   var creditsLabel: UILabel!
   var betLabel: UILabel!
   var winnerLabel: UILabel!
@@ -28,20 +27,27 @@ class ViewController: UIViewController {
   var winnerPaidTitleLabel: UILabel!
   
 // buttons in fourth container
-  
   var resetButton: UIButton!
   var betOneButton: UIButton!
   var betMaxButton: UIButton!
   var spinButton: UIButton!
+  
+// Slots Array
+  var slots: [[Slot]] = []
+  
+// Stats
+  var credits = 0
+  var currentBet = 0
+  var winnings = 0
   
 // constants
   let kMarginForView:CGFloat = 10.0
   let kSixth:CGFloat = 1.0/6.0
 
   let kNumberOfContainers = 3
-  let kNumberOfSlots = 3
+  let kNumberOfSlots =  3
   let kThird:CGFloat = 1.0/3.0
-  let kMarginForSlot:CGFloat = 2.0
+  let kMarginForSlot:CGFloat = 1.0
   
   let kEighth:CGFloat = 1.0/8.0
   let kHalf:CGFloat = 1.0/2.0
@@ -49,30 +55,68 @@ class ViewController: UIViewController {
   // IBActions
   func resetButtonPressed (button:UIButton) {
     println("\(button.currentTitle!) Button Pressed")
+    self.hardReset()
   }
   
   func betOneButtonPressed (button: UIButton) {
     println("\(button.currentTitle!) Button Pressed")
+    if credits <= 0 {
+      showAlertWithText(header: "No More Credits", message: "Reset Game")
+    }
+    else {
+      if currentBet < 5 {
+        currentBet += 1
+        credits -= 1
+        updateMainView()
+      }
+      else {
+        showAlertWithText(message: "You can only bet 5 credits at a time!")
+      }
+    }
   }
 
   func betMaxButtonPressed (button: UIButton) {
     println("\(button.currentTitle!) Button Pressed")
-  }
+    if credits <= 5 {
+      showAlertWithText(header: "Not Enough Credits", message: "Bet Less")
+    }
+    else {
+      if currentBet < 5 {
+        var creditsToBetMax = 5 - currentBet
+        credits -= creditsToBetMax
+        currentBet += creditsToBetMax
+        updateMainView()
+      }
+      else {
+        showAlertWithText(message: "You can only bet 5 credits at a time!")
+      }
+    }
+   
+   }
 
   func spinButtonPressed (button: UIButton) {
     println("\(button.currentTitle!) Button Pressed")
+    removeSlotImageViews ()
+    slots = Factory.createSlots()
+    setupSecondContainer(self.secondContainer)
   }
 
 // overrides
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    
+    // custom code
+    
     self.view.backgroundColor = UIColor.purpleColor()
-    setupContainerViews()
-    setupFirstContainer(self.firstContainer)
-    setupSecondContainer(self.secondContainer)
-    setupThirdContainer(self.thirdContainer)
-    setupFourthContainer(self.fourthContainer)
+    self.setupContainerViews()
+    self.setupFirstContainer(self.firstContainer)
+    self.setupThirdContainer(self.thirdContainer)
+    self.setupFourthContainer(self.fourthContainer)
+ 
+    self.hardReset()
+   
+    let slotsArray: [[Slot]] = Factory.createSlots()
   }
 
   override func didReceiveMemoryWarning() {
@@ -130,16 +174,28 @@ class ViewController: UIViewController {
 
   func setupSecondContainer(containerView: UIView) {
     for var containerNumber = 0; containerNumber < kNumberOfContainers; ++containerNumber {
-        for var slotNumber = 0; slotNumber < kNumberOfSlots; ++slotNumber {
-            var slotImageView = UIImageView()
-            slotImageView.backgroundColor = UIColor.yellowColor()
-            slotImageView.frame = CGRect(
-              x: containerView.bounds.origin.x + (containerView.bounds.size.width * CGFloat(containerNumber) * kThird),
-              y: containerView.bounds.origin.y + (containerView.bounds.size.height * CGFloat(slotNumber) * kThird),
-              width: containerView.bounds.width * kThird - kMarginForSlot,
-              height: containerView.bounds.height * kThird - kMarginForSlot)
-            containerView.addSubview(slotImageView)
+      for var slotNumber = 0; slotNumber < kNumberOfSlots; ++slotNumber {
+        
+        var slot: Slot
+        var slotImageView = UIImageView()
+        
+        if self.slots.count != 0 {
+          let slotContainer = slots[containerNumber]
+          slot = slotContainer[slotNumber]
+          slotImageView.image = slot.image
         }
+        else {
+          slotImageView.image = UIImage(named: "Ace")
+        }
+        
+        slotImageView.backgroundColor = UIColor.yellowColor()
+        slotImageView.frame = CGRect(
+          x: containerView.bounds.origin.x + (containerView.bounds.size.width * CGFloat(containerNumber) * kThird),
+          y: containerView.bounds.origin.y + (containerView.bounds.size.height * CGFloat(slotNumber) * kThird),
+          width: containerView.bounds.width * kThird - kMarginForSlot,
+          height: containerView.bounds.height * kThird - kMarginForSlot)
+        containerView.addSubview(slotImageView)
+      }
     }
   }
 
@@ -243,6 +299,45 @@ class ViewController: UIViewController {
     containerView.addSubview(self.spinButton)
   }
   
-
+  func removeSlotImageViews () {
+    if self.secondContainer != nil {
+      let container: UIView? = self.secondContainer
+      let subViews:Array? = container!.subviews
+      for view in subViews! {
+        view.removeFromSuperview()
+      }
+    }
+  }
+  
+  func hardReset() {
+    println("hardReset()")
+    self.removeSlotImageViews ()
+    self.slots.removeAll(keepCapacity: true)
+    self.setupSecondContainer(self.secondContainer)
+    
+    self.credits = 50
+    self.winnings = 0
+    self.currentBet = 0
+    
+    self.updateMainView()
+  }
+  
+  func updateMainView () {
+    self.creditsLabel.text = "\(credits)"
+    self.betLabel.text = "\(currentBet)"
+    self.winnerPaidLabel.text = "\(winnings)"
+  }
+  
+  func showAlertWithText (header: String = "Warning", message : String) {
+    var alert = UIAlertController(
+                  title: header,
+                  message: message,
+                  preferredStyle: UIAlertControllerStyle.Alert)
+    
+    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+    
+    self.presentViewController(alert, animated: true, completion: nil)
+  }
+  
 }
 
